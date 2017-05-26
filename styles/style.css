@@ -1,0 +1,310 @@
+body {
+	background-color:#000000;
+	color:#00FD00;
+	font-family: 'VT323', monospace;
+	font-size:18px;
+}
+
+header {
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+	height:50px;
+	width:100%;
+	padding:10px;
+	border-bottom:1px dashed #00FD00;
+	background-color:#000000;
+}
+
+header .loggedin {
+	float:right;
+}
+
+header .clock {
+	text-align:center;
+}
+
+div#main {
+	border-left:1px dashed #00FD00;
+	border-right:1px dashed #00FD00;
+	font-size:18px;
+	height: 100%;
+	width:100%;
+	padding-top:61px;
+	padding-bottom:60px;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+footer {	
+	text-align: center;
+	position:fixed;
+	bottom:0;
+	left:0;
+	right:0;
+	width:100%;
+	height:50px;
+	padding:10px;
+	border-top:1px dashed #00FD00;
+	background-color:#000000;
+}
+
+a {
+	color:#00FD00;
+}
+
+a:hover {
+	text-decoration:none;
+	color: #00DD00;
+}
+
+.startimage {
+	margin: auto;
+	text-align:center;
+}
+
+.loginform {
+	margin:0px;
+	float:right;
+}
+
+.loginform button {
+	width:100%;
+	height:100%;
+}
+
+.welcometext {
+	text-align:right;
+}
+
+.registerform button {
+	float:right;
+}
+
+
+
+input {
+	background-color:#00FD00 !important;
+	border:none;
+	color:#000000;
+	-webkit-text-fill-color: #000000 !important;
+	width:100%;	
+	padding-left:5px;
+	padding-right:5px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	-webkit-box-shadow: 0 0 0 1000px #00FD00 inset !important;
+	background-color:#00FD00 !important;
+}
+
+button {
+	background-color:#666;
+	color:#ffffff;
+	border:none;
+}
+
+button:hover {
+	background-color:#333;
+	color:#00FD00;
+}
+
+.nopadding {
+	padding:0px;
+}
+
+.loggedin a {
+	background-color: #00FD00;
+	color:#000000;
+	padding:5px;
+}
+
+.loggedin a:hover {
+	background-color:#00DD00;
+}
+
+
+.mainnav {
+	display: inline-block;
+}
+
+.mainnav a {
+	background-color: #00FD00;
+	color:#000000;
+	padding:5px;
+}
+
+.mainnav a:hover {
+	background-color:#00DD00;
+}
+
+input.error[placeholder] {
+	color:#FF0000;
+}
+
+
+
+.errorheader {
+	text-align:center;
+	color:#FF0000;
+}
+
+.errorsign {
+	color:#FD0000;
+	float:right;
+}
+
+.errormessage {
+	color:#FD0000;
+	border:1px dashed #FF0000;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.successmessage h2, .successmessage p {
+	text-align: center;
+}
+
+/* Forms */
+
+.formheader {
+	margin-bottom:20px;
+	margin-top:20px;
+}
+
+.formheader h2 {
+	text-align:center;
+	margin-bottom:0px;
+	margin-top:0px;
+}
+
+.formheader p.legend {
+	text-align:center;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */ opacity: 0.5; }
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ opacity: 0.5; }
+::-moz-placeholder { /* Mozilla Firefox 19+ */ opacity: 0.5; }
+:-ms-input-placeholder { /* Internet Explorer 10-11 */ opacity: 0.5; }
+
+/* Input File */
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + label {
+    /*font-size: 1.25em;
+    font-weight: 700;*/
+    color: #000000;
+    background-color: #00FD00;
+    display: inline-block;
+		width:100%;
+}
+
+
+.inputfile + label {
+	cursor: pointer; /* "hand" cursor */
+}
+.inputfile:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+/*firefoxbug*/
+.inputfile:focus + label,
+.inputfile.has-focus + label {
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+.inputfile + label div.ppclick {
+	background-color:#666;
+	color:#FFFFFF;
+}
+.inputfile + label:hover div.ppclick {
+	background-color:#333;
+	color:#00FD00;
+}
+
+.inputfile + label span.placeholder {
+	opacity: 0.5;
+	font-weight:normal;
+	/*
+		display: inline-block;
+    min-height: 2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 200px;*/
+}
+
+/* Datepicker */ 
+
+#ui-datepicker-div {
+	background-color:#000;
+	border: 1px dashed #00FD00;
+}
+.ui-widget {
+	font-family: 'VT323', monospace;
+	font-size:18px;
+}
+.ui-widget-header {
+	background:none;
+	background-color:#666;
+	border:none;
+	color:#fff;
+}
+
+.ui-widget-content {
+	color: #000;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+	background:none;
+	background-color:#00FD00;
+	border:none;
+	color:#000;
+}
+
+.ui-state-default:hover {
+	background-color: #00DD00;
+}
+
+.ui-state-active {
+	background-color:#666 !important;
+	color:#fff !important;
+}
+
+.ui-datepicker-month, .ui-datepicker-year {
+	background-color:#000;
+	border:none;
+	 -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.ui-datepicker-month {
+	margin-right:5px !important;
+}
+
+.ui-datepicker-month:hover, .ui-datepicker-year:hover {
+	background-color:#333;
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {	border-bottom-right-radius: 0px;}
+.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl {border-bottom-left-radius: 0px;}
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr {border-top-right-radius:0px;}
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl {border-top-left-radius:0px;}
+
+/* Anti Bootstrap */
+p {
+	margin:0px;
+}

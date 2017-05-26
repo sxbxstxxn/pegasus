@@ -1,0 +1,196 @@
+<?php
+include_once 'config.php'; 
+session_start();
+
+
+//******* CONFIRM ********
+if ($_GET['action'] == 'confirm') {
+	$key = $_GET['key'];
+	$email = $_GET['email'];
+	
+	$pdo = new PDO('mysql:host='.HOST.';dbname='.DATABASE, USER, PASSWORD);
+		
+	$statement = $pdo->prepare("SELECT * FROM usersconfirm WHERE email = :email");
+	$result = $statement->execute(array('email' => $email));
+	$userconfirm = $statement->fetch(PDO::FETCH_ASSOC);
+	$id = $userconfirm['userid'];
+	
+	if ($userconfirm['key']==$key) {
+		$confirmation = $pdo->prepare("UPDATE `users` SET `email_confirmed` = 1 WHERE id = :id");
+		$confirmation->bindParam(':id',$id);
+		$confirmation->execute();
+		$confirmationdel = $pdo->prepare("DELETE FROM `usersconfirm` WHERE `email` = :email");
+		$confirmationdel->bindParam(':email',$email);
+		$confirmationdel->execute();
+		$_SESSION['registerprocess']['confirm'] = 'success';
+	}
+	else {
+		$_SESSION['errormessage'] = 'Incorrect confirmation link. Please contact the administrator.';
+	}
+	
+}
+
+
+//******* REGISTER ********
+else {
+	
+	$username = $_POST['username'];
+	$password = $_POST['password'];
+	$retypepassword = $_POST['retypepassword'];
+	$email = $_POST['email'];
+	$birthdate = $_POST['birthdate'];
+	$picture = $_POST['picture'];
+
+	$created_at = time();
+
+	$dbsend = true;
+
+	/* USERNAME */
+	if ($username == '') {
+		$_SESSION['errormessage']['username'] = 'Please enter a username!';
+		$dbsend = false;
+	}
+	else {
+		if (usernameExists($username)) {
+			$_SESSION['errormessage']['username'] = 'Username is already in use! Please choose another or login with existing account.';
+			$dbsend = false;		
+		}
+		elseif (strlen($username) < 5) {
+			$_SESSION['errormessage']['username'] = 'Username is too short, it needs 5 letters or more!';
+			$dbsend = false;
+		}
+		elseif (strlen($username) > 20) {
+			$_SESSION['errormessage']['username'] = 'Username is too long, maximum are 20 letters!';
+			$dbsend = false;
+		}
+		else {
+			$_SESSION['registerprocess']['username'] = $username;
+			//$dbsend=true;
+		}
+	}
+
+	/* PASSWORD */
+	if ($password == '') {$_SESSION['errormessage']['password'] = 'Please enter a password!';}
+	elseif (strlen($password) < 5) {$_SESSION['errormessage']['password'] = 'Password is too short, please use 5 or more letters!';$dbsend = false;}
+	else {$pwsend = password_hash($password,PASSWORD_DEFAULT);/*$dbsend = true;*/}
+
+	if ($password != $retypepassword) {$_SESSION['errormessage']['retypepassword'] = 'Your passwords do not match!';$dbsend=false;}
+
+	/* EMAIL */
+	if ($email == '') {$_SESSION['errormessage']['email'] .= 'Please enter a email!';$dbsend = false;}
+	else {
+		if (emailExists($email)) {
+			$_SESSION['errormessage']['email'] .= 'E-Mail adress is already in use. Please choose another or login with existing account.';$dbsend = false;
+		}
+		elseif (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+			$_SESSION['registerprocess']['email'] = $email;//$dbsend = true;
+		}
+		else {
+			$_SESSION['errormessage']['email'] .= 'Your email adress is not valid!';$dbsend = false;
+		}
+	}
+
+
+	if ($dbsend == true) {
+
+		$pdo = new PDO('mysql:host='.HOST.';dbname='.DATABASE, USER, PASSWORD);
+		
+		try {
+			//$statement = $pdo->prepare("INSERT INTO usersconfirm (`userid`, `key`, `email`) VALUES (42, 'blakey', 'testmail')");
+			$statement = $pdo->prepare("INSERT INTO users (username, password, email, birthdate, picture) VALUES (:username, :password, :email, :birthdate, :picture)");
+			$statement->bindParam(':username', $username);
+			$statement->bindParam(':password', $pwsend);
+			$statement->bindParam(':email', $email);
+			$statement->bindParam(':birthdate', $birthdate);
+			$statement->bindParam(':picture', $picture);
+			$statement->execute();
+		}
+		catch (PDOException $e) {
+			$_SESSION['errormessage']['dberror'] = $e;
+		}
+		
+		$userid = $pdo->lastInsertId();
+
+		
+		$key = $username.$email.date('mY');
+		$key = md5($key);
+		
+		try {
+			$confirmation = $pdo->prepare("INSERT INTO usersconfirm (`userid`, `key`, `email`) VALUES (:userid, :key, :email)");
+			$confirmation->bindParam(':userid', $userid);
+			$confirmation->bindParam(':key', $key);
+			$confirmation->bindParam(':email', $email);
+			$confirmation->execute();
+		}
+		catch (PDOException $e) {
+			$_SESSION['errormessage']['dberror'] = $e;
+		}
+		
+		sendConfirmationMail($email, $key);
+		
+		$_SESSION['registerprocess']['dbsend'] = 'success';
+	}
+
+	
+}	
+header('Location: '.BASEURL.'/register.php');
+
+
+function usernameExists ($username) {
+	$pdo = new PDO('mysql:host='.HOST.';dbname='.DATABASE, USER, PASSWORD);
+
+	$statement = $pdo->prepare("SELECT * FROM users WHERE username = :username");
+	$result = $statement->execute(array('username' => $username));
+	$user = $statement->fetch(PDO::FETCH_ASSOC);
+
+	if ($user !== false) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+function emailExists ($email) {
+	$pdo = new PDO('mysql:host='.HOST.';dbname='.DATABASE, USER, PASSWORD);
+
+	$statement = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+	$result = $statement->execute(array('email' => $email));
+	$user = $statement->fetch(PDO::FETCH_ASSOC);
+
+	if ($user !== false) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+function sendConfirmationMail($receiver, $key) {
+	include_once 'config.php';
+	require('/www/htdocs/w0131f27/pegasus.sebastian-christoph.de/lib/smarty-3.1.30/Smarty.class.php');
+	
+	$header  = 'MIME-Version: 1.0' . "\r\n";
+	$header .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+	$header .= 'FROM: Pegasus Tool <pegasus@sebastian-christoph.de>' . "\r\n";
+	$subject = 'Please confirm your email adress.';
+	$message = 'This is a test message';
+	
+	$confirmationlink = BASEURL.'/registerAction.php?action=confirm&email='.urlencode($receiver).'&key='.urlencode($key);
+	
+	$smarty = new Smarty;
+
+	$smarty->template_dir = '/www/htdocs/w0131f27/pegasus.sebastian-christoph.de/templates/';
+	$smarty->compile_dir = '/www/htdocs/w0131f27/pegasus.sebastian-christoph.de/templates_c/';
+	$smarty->config_dir = '/www/htdocs/w0131f27/pegasus.sebastian-christoph.de/configs/';
+	$smarty->cache_dir = '/www/htdocs/w0131f27/pegasus.sebastian-christoph.de/cache/';
+
+	$smarty->assign('confirmationlink',$confirmationlink);
+	$smarty->assign('email',$email);
+	
+	$message = $smarty->fetch('mails/register_confirmation.tpl');
+	
+	mail($receiver, $subject, $message, $header);
+}
+
+?>
