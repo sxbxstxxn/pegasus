@@ -12,7 +12,7 @@ class PegasusPage extends Smarty {
 		$this->config_dir = '/www/htdocs/w0131f27/pegasus.sebastian-christoph.de/configs/';
 		$this->cache_dir = '/www/htdocs/w0131f27/pegasus.sebastian-christoph.de/cache/';	
 		
-		var_dump($_SESSION['user']);
+		//var_dump($_SESSION['user']);
 		
 		if(isset($_SESSION['user'])) {
 			//$userid = $_SESSION['loggedUser'];
@@ -24,7 +24,7 @@ class PegasusPage extends Smarty {
 		
 			if($_POST['action'] == 'login'){				
 				$this->login($_POST['username'],$_POST['password']);	
-				header('Location: '.BASEURL);
+				header('Location: '.BASEURL.$_POST['currentPage']);
 			}
 		}
 
@@ -45,6 +45,7 @@ class PegasusPage extends Smarty {
 	
 	function login($username, $password) 
 	{
+		
 		$pdo = new PDO('mysql:host='.HOST.';dbname='.DATABASE, USER, PASSWORD);
 
 		$statement = $pdo->prepare("SELECT * FROM users WHERE username = :username");

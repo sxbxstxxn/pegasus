@@ -58,7 +58,7 @@ else {
 	}
 }
 
-if (isset($_SESSION['loggedUser'])) {
+if (isset($_SESSION['user'])) {
 	$pegasus->display('myprofile.tpl');
 }
 else {
