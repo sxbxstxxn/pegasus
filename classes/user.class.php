@@ -122,6 +122,21 @@ class PegasusUser {
 		return true;
 	}
 	
+	
+	function getUserById($id) {
+		return $id;
+	}
+	
+	function getUserlist() {
+		$pdo = new PDO('mysql:host='.HOST.';dbname='.DATABASE, USER, PASSWORD);
+
+		$statement = $pdo->prepare("SELECT * FROM users");
+		$result = $statement->execute();
+		$userlist = $statement->fetchAll(PDO::FETCH_ASSOC);
+		//var_dump($userlist);die;
+		return $userlist;
+	}
+	
 	function usernameValid($username) {
 		$result = false;
 		$length = strlen($username);

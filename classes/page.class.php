@@ -24,7 +24,7 @@ class PegasusPage extends Smarty {
 		
 			if($_POST['action'] == 'login'){				
 				$this->login($_POST['username'],$_POST['password']);	
-				header('Location: '.BASEURL.$_POST['currentPage']);
+				//header('Location: '.BASEURL.$_POST['currentPage']);
 			}
 		}
 
@@ -65,7 +65,8 @@ class PegasusPage extends Smarty {
 			else {
 				//$_SESSION['loggedUser'] = $user['id'];
 				$_SESSION['user'] = $user;
-				return true;
+				//return true;
+				header('Location: '.BASEURL.$_POST['currentPage']);
 			}
 		}
 		$this->assign('loginerror', $loginerror);

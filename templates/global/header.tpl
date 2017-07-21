@@ -4,6 +4,7 @@
 		<nav class="mainnav">
 			{if isset($user) }
 				<a href="/myprofile.php">my profile</a>
+				<a href="/userlist.php">userlist</a>
 			{else}
 				<a href="/register.php">Register</a>				
 			{/if}
