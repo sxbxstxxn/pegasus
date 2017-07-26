@@ -10,7 +10,14 @@ $pegasus->assign('title','Userlist');
 
 $user = new PegasusUser;
 $userlist = $user->getUserlist();
-//var_dump($userlist);die;
+
+//remove loggedin User from userlist
+foreach($userlist as $key=>$user) {
+	if ($user['id'] == $_SESSION['user']['id']) {
+		unset($userlist[$key]);
+	}
+}
+
 
 $pegasus->assign('userlist',$userlist);
 

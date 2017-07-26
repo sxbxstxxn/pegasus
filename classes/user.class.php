@@ -124,16 +124,32 @@ class PegasusUser {
 	
 	
 	function getUserById($id) {
-		return $id;
+		try {
+			$pdo = new PDO('mysql:host='.HOST.';dbname='.DATABASE, USER, PASSWORD);
+
+			$statement = $pdo->prepare("SELECT * FROM `users` WHERE id = :id");
+			$statement->bindParam(':id',$id);
+			$result = $statement->execute();
+			$user = $statement->fetch(PDO::FETCH_ASSOC);
+		} catch (PDOException $e) {
+			//throw new Exception($e);
+			$user['error'] = 'Es ist ein Fehler aufgetreten. Bitte kontaktieren Sie den Administrator (FehlerCode UC0081)';			
+		}				
+		return $user;
 	}
 	
 	function getUserlist() {
-		$pdo = new PDO('mysql:host='.HOST.';dbname='.DATABASE, USER, PASSWORD);
+		
+		try {
+			$pdo = new PDO('mysql:host='.HOST.';dbname='.DATABASE, USER, PASSWORD);
 
-		$statement = $pdo->prepare("SELECT * FROM users");
-		$result = $statement->execute();
-		$userlist = $statement->fetchAll(PDO::FETCH_ASSOC);
-		//var_dump($userlist);die;
+			$statement = $pdo->prepare("SELECT * FROM users");
+			$result = $statement->execute();
+			$userlist = $statement->fetchAll(PDO::FETCH_ASSOC);
+		} catch (PDOException $e) {
+			//throw new Exception($e);
+			$user['error'] = 'Es ist ein Fehler aufgetreten. Bitte kontaktieren Sie den Administrator (FehlerCode UC0081)';
+		}
 		return $userlist;
 	}
 	
