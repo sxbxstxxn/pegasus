@@ -12,7 +12,6 @@
         Username:  {$profile.username}<br/>
         E-Mail: {$profile.email}<br/>
         Birthdate: {$profile.birthdate}<br/>
-        Picture: <img src="uploads/{$profile.picture}" width="100px" height="100px"/><br/>
 		    Account created: {$profile.created_at}<br/>
 		    Last updated: {$profile.updated_at}<br/>
       {else}

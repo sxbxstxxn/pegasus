@@ -16,14 +16,14 @@ class PegasusHelper {
 	$_mimetypes['application/futuresplash'] = 'spl'; 	#		Flash Futuresplash-Dateien
 	$_mimetypes['application/gzip'] 				= 'gz';	 	#		GNU Zip-Dateien
 	$_mimetypes['application/listenup'] 		= 'ptlk'; #		Listenup-Dateien
-	$_mimetypes['application/mac-binhex40']	= 'hqx'; 	#		Macintosh Binärdateien
+	$_mimetypes['application/mac-binhex40']	= 'hqx'; 	#		Macintosh Binï¿½rdateien
 	$_mimetypes['application/mbedlet'] 			= 'mbd'; 	#		Mbedlet-Dateien
 	$_mimetypes['application/mif'] 					= 'mif'; 	#		FrameMaker Interchange Format Dateien
 	$_mimetypes['application/msexcel'] 			= 'xls'; 	# 	*.xla 	Microsoft Excel Dateien
 	$_mimetypes['application/mshelp'] 			= 'hlp'; 	# 	*.chm 	Microsoft Windows Hilfe Dateien
 	$_mimetypes['application/mspowerpoint'] = 'ppt'; 	# 	*.ppz *.pps *.pot 	Microsoft Powerpoint Dateien
 	$_mimetypes['application/msword'] 			= 'doc'; 	# 	*.dot 	Microsoft Word Dateien
-	$_mimetypes['application/octet-stream'] = 'bin'; 	# 	*.exe *.com *.dll *.class 	Nicht näher spezifizierte Binärdaten, z.B. ausführbare Dateien
+	$_mimetypes['application/octet-stream'] = 'bin'; 	# 	*.exe *.com *.dll *.class 	Nicht nï¿½her spezifizierte Binï¿½rdaten, z.B. ausfï¿½hrbare Dateien
 	$_mimetypes['application/oda'] 					= 'oda'; 	# 	Oda-Dateien
 	$_mimetypes['application/pdf'] 					= 'pdf'; 	#		Adobe PDF-Dateien
 	$_mimetypes['application/postscript'] 	= 'ai'; 	# 	*.eps *.ps 	Adobe PostScript-Dateien
@@ -47,7 +47,7 @@ class PegasusHelper {
 	$_mimetypes['application/x-httpd-php'] 		= 'php';	# *.phtml 	PHP-Dateien
 	$_mimetypes['application/x-javascript'] 	= 'js'; 	#		serverseitige JavaScript-Dateien
 	$_mimetypes['application/x-latex'] 		= 'latex'; 	#		LaTeX-Quelldateien
-	$_mimetypes['application/x-macbinary'] 		= 'bin'; 	#		Macintosh Binärdateien
+	$_mimetypes['application/x-macbinary'] 		= 'bin'; 	#		Macintosh Binï¿½rdateien
 	$_mimetypes['application/x-mif'] 		= 'mif'; 	# 		FrameMaker Interchange Format Dateien
 	$_mimetypes['application/x-netcdf'] 		= 'nc'; 	# *.cdf 	Unidata CDF-Dateien
 	$_mimetypes['application/x-nschat'] 		= 'nsc'; 	# 		NS Chat-Dateien
@@ -113,7 +113,7 @@ class PegasusHelper {
 	$_mimetypes['multipart/alternative'] 		= '';  		# 		mehrteilige Daten gemischt
 	$_mimetypes['multipart/byteranges'] 		= '';  		# 		mehrteilige Daten mit Byte-Angaben
 	$_mimetypes['multipart/digest'] 	  	= '';		# 		mehrteilige Daten / Auswahl
-	$_mimetypes['multipart/encrypted'] 	  	= '';		# 		mehrteilige Daten verschlüsselt
+	$_mimetypes['multipart/encrypted'] 	  	= '';		# 		mehrteilige Daten verschlï¿½sselt
 	$_mimetypes['multipart/form-data'] 	  	= '';		# 		mehrteilige Daten aus HTML-Formular (z.B. File-Upload)
 	$_mimetypes['multipart/mixed'] 	  		= '';		# 		mehrteilige Daten gemischt
 	$_mimetypes['multipart/parallel'] 	  	= '';		# 		mehrteilige Daten parallel
@@ -148,7 +148,7 @@ class PegasusHelper {
 	$_mimetypes['x-world/x-3dmf'] 			= '3dmf'; 	# *.3dm *.qd3d *.qd3 	3DMF-Dateien
 	$_mimetypes['x-world/x-vrml'] 			= 'wrl';	# ?
 
-        ### hier proprietäre MIME-Types einfügen
+        ### hier proprietï¿½re MIME-Types einfï¿½gen
 	
 	if (isset($_mimetypes[$mime_type]))
 	{
@@ -158,11 +158,7 @@ class PegasusHelper {
 	return false;
 	}
 	
-	static function getPictureName($picture,$username) {
-		$picturetype = PegasusHelper::mime_to_ext($picture['type']);
-		$picturename = 'pegasus_profilepic_'.$username.'.'.$picturetype;
-		return $picturename;
-	}
+
 }
 
 ?>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2016-12-23 15:26:13
+/* Smarty version 3.1.30, created on 2017-08-01 14:48:06
   from "/www/htdocs/w0131f27/pegasus.sebastian-christoph.de/templates/global/head.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_585d34057e5da6_04164540',
+  'unifunc' => 'content_59807886be9cc7_29349325',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f248fb330a2034a95392fea96aa7f0116db2aed2' => 
     array (
       0 => '/www/htdocs/w0131f27/pegasus.sebastian-christoph.de/templates/global/head.tpl',
-      1 => 1482503077,
+      1 => 1501591609,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_585d34057e5da6_04164540 (Smarty_Internal_Template $_smarty_tpl) {
+function content_59807886be9cc7_29349325 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <html>
 	<head>
@@ -52,6 +52,7 @@ if (isset($_smarty_tpl->tpl_vars['title']->value)) {?> - <?php echo $_smarty_tpl
 		
 		<?php echo '<script'; ?>
 >
+		
 		$( function() {
 			//$( "#datepicker" ).datepicker();
 			$( "#datepicker" ).datepicker({
@@ -66,40 +67,9 @@ if (isset($_smarty_tpl->tpl_vars['title']->value)) {?> - <?php echo $_smarty_tpl
 			});		
 		});
 		
-		$( document ).ready(function() {
-			
-			//FILEINPUT
-			$( '.inputfile' ).each( function()
-			{
-				var $input	 = $( this ),
-					$label	 = $input.next( 'label' ),
-					labelVal = $label.html();
-
-				$input.on( 'change', function( e )
-				{
-					var fileName = '';
-
-					if( this.files && this.files.length > 1 )
-						fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '1', this.files.length );
-					else if( e.target.value )
-						fileName = e.target.value.split( '\\' ).pop();
-
-					if( fileName )
-						$label.find( 'span' ).html( fileName );
-					else
-						$label.html( labelVal );
-				});
-
-				// Firefox bug fix
-				$input
-				.on( 'focus', function(){ $input.addClass( 'has-focus' ); })
-				.on( 'blur', function(){ $input.removeClass( 'has-focus' ); });
-			});
-			//end FILEINPUT
-			
-		});
 		
-    
+		
+  
     
 		<?php echo '</script'; ?>
 >

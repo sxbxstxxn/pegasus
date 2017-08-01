@@ -9,31 +9,26 @@ class PegasusUser {
 		
 	}
 	
-	function createUser($username, $password, $email, $birthdate, $picture) {
+	function createUser($username, $password, $email, $birthdate) {
 		$pdo = new PDO('mysql:host='.HOST.';dbname='.DATABASE, USER, PASSWORD);	
 				
 		$check['username'] = $this->usernameValid($username);
 		$check['email'] = $this->emailValid($email);
 		$check['password'] = $this->passwordValid($password);	
-		$picturename = PegasusHelper::getPictureName($picture,$username);
-		$check['picture'] = $this->pictureValid($picture, $picturename);
-				
-			//var_dump($check);die;
 				
 		$key = $username.$email.date('mY');
 		$key = md5($key);	
 		
-		if ($check['username'] == 1 && $check['password'] == 1 && $check['email'] == 1 && $check['picture'] == 1) {	
+		if ($check['username'] == 1 && $check['password'] == 1 && $check['email'] == 1) {	
 			try {
 				$pwsend = password_hash($password,PASSWORD_DEFAULT);
 				
-				$statement = $pdo->prepare("INSERT INTO `users` (`username`, `password`, `email`, `birthdate`, `picture`) VALUES (:username, :password, :email, :birthdate, :picture)");
+				$statement = $pdo->prepare("INSERT INTO `users` (`username`, `password`, `email`, `birthdate`) VALUES (:username, :password, :email, :birthdate)");
 				//var_dump($statement);die;
 				$statement->bindParam(':username', $username);
 				$statement->bindParam(':password', $pwsend);
 				$statement->bindParam(':email', $email);
 				$statement->bindParam(':birthdate', $birthdate);
-				$statement->bindParam(':picture', $picturename);
 				$statement->execute();
 			}
 			catch (PDOException $e) {
@@ -69,7 +64,6 @@ class PegasusUser {
 			if ($check['username'] == 1) {unset($check['username']);}
 			if ($check['password'] == 1) {unset($check['password']);}
 			if ($check['email'] == 1) {unset($check['email']);}
-			if ($check['picture'] == 1) {unset($check['picture']);}
 			return $check;
 		}
 	}
@@ -240,27 +234,6 @@ class PegasusUser {
 		return $result;
 	}
 	
-	function pictureValid($picture, $picturename) {
-		
-		switch ($picture['error']) {
-			case 0:
-				$isimage = getimagesize($picture['tmp_name']);
-				if ($isimage == true) {			
-					$uploads_dir = BASEDIR.'/uploads';			
-					$result = move_uploaded_file($picture['tmp_name'],"$uploads_dir/$picturename");
-				}
-				else {
-					$result = 'this is not an image';
-				}
-				break;
-			case 4:
-				$result = true;
-				break;
-			default:
-				$result = 'unknown error with your picture. please contact your administrator.';
-		}
-		return $result;
-	}
 
 	protected function getUserIdByEmail($email) {
 		try {

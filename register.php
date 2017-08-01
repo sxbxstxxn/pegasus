@@ -44,7 +44,7 @@ else {
 				$pegasus->assign('registererror',$registererror);
 		}
 		else {
-			$fieldsValid = $user->createUser($_POST['username'],$_POST['password'],$_POST['email'],$_POST['birthdate'],$_FILES['profilepicture']);	
+			$fieldsValid = $user->createUser($_POST['username'],$_POST['password'],$_POST['email'],$_POST['birthdate']);	
 		
 			if ($fieldsValid !== true) {
 				$pegasus->assign('title','Registration error');
@@ -59,10 +59,12 @@ else {
 }
 
 if (isset($_SESSION['user'])) {
-	$pegasus->display('myprofile.tpl');
+	//$pegasus->display('myprofile.tpl');
+	$pegasus->assign('title','Already registered');
+	$pegasus->assign('alreadyregistered',1);
 }
-else {
+//else {
 	$pegasus->display('register.tpl');
-}
+//}
 
 ?>
