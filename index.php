@@ -9,4 +9,7 @@ $pegasus = new PegasusPage;
 
 $pegasus->display('index.tpl');
 
+//test for github
+//test2
+
 ?>
