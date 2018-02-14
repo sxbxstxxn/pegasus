@@ -1,6 +1,6 @@
 <header>
 	<div class="col-md-4">
-		<a href="/"><img src="/images/icons/icon_pegasus_32x32.jpg"/></a>
+		<a href="/"><img src="/images/icons/icon_nerdwolf_32x32.png"/></a>
 		<nav class="mainnav">
 			{if isset($user) }
 				<a href="/myprofile.php">my profile</a>

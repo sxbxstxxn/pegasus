@@ -13,7 +13,7 @@
 			<h2><center>Welcome to {#pageTitle#}</center></h2>
 		{/if}
 		<div class="startimage col-md-12">
-			<img src="/images/icons/icon_pegasus_240x240.jpg"/>
+			<img src="/images/icons/icon_nerdwolf_240x240.png"/>
 		</div>
 		<p><center>I hope this tool will be useful later.</center></p>
 		<h3><center>Impressum</center></h3>
